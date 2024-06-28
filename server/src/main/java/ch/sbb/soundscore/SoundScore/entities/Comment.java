@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.List;
+
 @Table(name = "comments")
 @Entity
 @Getter
@@ -30,4 +32,6 @@ public class Comment {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Comment comment;
+
+    private List<Comment> children;
 }

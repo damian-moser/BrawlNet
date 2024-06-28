@@ -1,0 +1,4 @@
+<h2>{{ 'POST.COMMENTS' | translate }}</h2>
+@for (comment of comments; track $index){
+  <app-post [comment]="comment" [activeUser]="activeUser" [replies]="comments" [currentAction]="currentAction" [focusedComment]="focusedComment"></app-post>
+}

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -37,15 +37,16 @@ import {GenerictranslatePipe} from "../../pipes/generictranslate.pipe";
 export class PostComponent implements OnInit {
   post: Post;
   comments: Comment[] = []
-  replies: Comment[] = []
   newComment: Comment;
-  activeUser: User;
   postId: number = Number(this.route.snapshot.paramMap.get('postId'));
-  currentAction: 'Add' | 'Edit your' | 'Reply to' = 'Add';
-  focusedComment?: Comment;
   likeProcessing: boolean = false;
   liked: boolean = false;
   disliked: boolean = false;
+  @Input() comment?: Comment;
+  @Input() activeUser!: any;
+  @Input() replies: Comment[] = [];
+  @Input() currentAction: string = '';
+  @Input() focusedComment?: Comment;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,

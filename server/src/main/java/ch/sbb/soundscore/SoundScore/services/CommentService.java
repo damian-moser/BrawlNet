@@ -5,6 +5,7 @@ import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -36,6 +37,27 @@ public class CommentService {
     }
 
     public List<Comment> getCommentsByPostId(Long postId) {
-        return commentRepository.findAllBypost(postId);
+        List<Comment> comments = commentRepository.findAllBypost(postId);
+        return buildCommentTree(comments);
+    }
+
+    private List<Comment> buildCommentTree(List<Comment> comments) {
+        return comments.stream()
+                .filter(comment -> comment.getComment() == null)
+                .map(comment -> {
+                    comment.setChildren(getChildren(comment, comments));
+                    return comment;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private List<Comment> getChildren(Comment parent, List<Comment> comments) {
+        return comments.stream()
+                .filter(comment -> parent.equals(comment.getComment()))
+                .map(comment -> {
+                    comment.setChildren(getChildren(comment, comments));
+                    return comment;
+                })
+                .collect(Collectors.toList());
     }
 }

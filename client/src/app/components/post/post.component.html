@@ -1,5 +1,5 @@
 <app-head-nav-bar></app-head-nav-bar>
-<button (click)="goBack()" color="primary" mat-button>❮ {{'POST_FORM.GO_BACK_BUTTON' | translate}}</button>
+<button (click)="goBack()" color="primary" mat-button>❮ {{ 'POST_FORM.GO_BACK_BUTTON' | translate }}</button>
 @if (post) {
   <div class="post-container">
     @if (post.image) {
@@ -13,12 +13,13 @@
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
       <div class="post-meta">
-        <span [routerLink]="['/home/usersPosts/' + post.user.id]">{{'HOME.POSTED_BY' | translate}} {{ post.user.username }}</span>
-<!--        <div class="like-dislike-container">-->
-<!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
-<!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
-<!--          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>-->
-<!--        </div>-->
+        <span
+          [routerLink]="['/home/usersPosts/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>
+        <!--        <div class="like-dislike-container">-->
+        <!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
+        <!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
+        <!--          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>-->
+        <!--        </div>-->
         <div class="like-dislike-container">
           <div class="icons-box">
             <div>
@@ -53,59 +54,30 @@
   </div>
 
   <div class="comments-section">
-
-    <h2>{{ 'POST.COMMENTS' | translate }}</h2>
-    @for (comment of comments; track $index) {
-      <div class="comment">
-        <div class="comment-content" style="width: 90%">
-          <h3>{{ comment.user.username }}</h3>
-          <p>{{ comment.message }}</p>
-        </div>
-        <div class="comment-actions">
-          <div class="comment-owner-actions">
-            @if (comment.user.id === activeUser.id && comment.id) {
-              <mat-icon
-                (click)="currentAction = 'Edit your'; focusedComment = comment; newComment.title = comment.title; newComment.message = comment.message"
-                class="comment-icon">edit
-              </mat-icon>
-              <mat-icon (click)="deleteComment(comment)" class="comment-icon">delete</mat-icon>
-
-            }
-          </div>
-          <mat-icon (click)="currentAction='Reply to'; focusedComment = comment" class="comment-icon">reply</mat-icon>
-        </div>
+    <div class="comment">
+      <div class="comment-content" style="width: 90%">
+        <h3>{{ comment?.user?.username }}</h3>
+        <p>{{ comment?.message }}</p>
       </div>
-      @for (reply of replies; track $index) {
-        @if (reply.comment && reply.comment.id === comment.id) {
-          <div class="reply">
-            <div class="reply-icon">
-              <mat-icon>subdirectory_arrow_right</mat-icon>
-            </div>
-            <div class="comment reply-comment">
-              <div class="comment-content" style="width: 90%">
-                <h3>{{ reply.title }}</h3>
-                <p>{{ reply.message }}</p>
-              </div>
-              <div class="comment-actions">
-                <div class="comment-owner-actions">
-                  @if (reply.user.id === activeUser.id && reply.id) {
-                    <mat-icon
-                      (click)="currentAction = 'Edit your'; focusedComment = reply; newComment.title = reply.title; newComment.comment = reply.comment"
-                      class="comment-icon">edit
-                    </mat-icon>
-                    <mat-icon (click)="deleteComment(reply)" class="comment-icon">delete</mat-icon>
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+      <div class="comment-actions">
+        @if (comment?.user?.id === activeUser.id && comment) {
+          <mat-icon (click)="editComment()" class="comment-icon">edit</mat-icon>
+          <mat-icon (click)="deleteComment(comment)" class="comment-icon">delete</mat-icon>
         }
+        <mat-icon (click)="currentAction='Reply to'; focusedComment = comment" class="comment-icon">reply</mat-icon>
+      </div>
+    </div>
+    @for (reply of replies; track $index) {
+      @if (reply.comment && reply.comment.id === comment?.id) {
+        <div class="reply-icon">
+          <mat-icon>subdirectory_arrow_right</mat-icon>
+        </div>
+        <app-post [comment]="reply" [activeUser]="activeUser" [replies]="replies" [currentAction]="currentAction"
+                  [focusedComment]="focusedComment"></app-post>
       }
     }
     <div class="comment-form">
-      <h3>{{ currentAction }}{{'POST.COMMENT' | translate}}</h3>
+      <h3>{{ currentAction }} {{ 'POST.COMMENT' | translate }}</h3>
       <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
