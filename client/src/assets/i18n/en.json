@@ -79,7 +79,10 @@
     "POST_TYPE_LABEL": "Post Type",
     "SUBMIT_BUTTON_EDIT": "Edit Post",
     "SUBMIT_BUTTON_CREATE": "Create Post",
-    "Comment": "a Comment"
+    "COMMENT": "a Comment",
+    "Add": "Add",
+    "Edit your": "Edit your",
+    "Reply to": "Reply to"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Edit your Song",

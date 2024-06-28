@@ -78,7 +78,10 @@
     "POST_TYPE_LABEL": "📝",
     "SUBMIT_BUTTON_EDIT": "📝",
     "SUBMIT_BUTTON_CREATE": "📝",
-    "Comment": "💬"
+    "COMMENT": "💬",
+    "Add": "➕",
+    "Edit your": "✏",
+    "Reply to": "↩"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "📝",

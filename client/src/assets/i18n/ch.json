@@ -78,7 +78,10 @@
     "POST_TYPE_LABEL": "发布类型",
     "SUBMIT_BUTTON_EDIT": "编辑发布",
     "SUBMIT_BUTTON_CREATE": "创建发布",
-    "Comment": "评论"
+    "COMMENT": "评论",
+    "Add": "添加",
+    "Edit your": "编辑你的",
+    "Reply to": "回复"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "编辑您的歌曲",

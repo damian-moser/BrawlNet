@@ -45,7 +45,7 @@ export class PostComponent implements OnInit {
   @Input() comment?: Comment;
   @Input() activeUser!: any;
   @Input() replies: Comment[] = [];
-  @Input() currentAction: string = '';
+  @Input() currentAction: 'Add'|'Reply to'|'Edit your' = 'Add';
   @Input() focusedComment?: Comment;
 
   constructor(private route: ActivatedRoute,

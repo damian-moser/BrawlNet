@@ -78,7 +78,10 @@
     "POST_TYPE_LABEL": "Post Typ",
     "SUBMIT_BUTTON_EDIT": "Post bearbeitä",
     "SUBMIT_BUTTON_CREATE": "Post erstellä",
-    "Comment": "e Kommentar"
+    "COMMENT": "e Kommentar",
+    "Add": "Däzuäfuege",
+    "Edit your": "Dini bearbeite",
+    "Reply to": "Antworte uf"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Din Song bearbeitä",

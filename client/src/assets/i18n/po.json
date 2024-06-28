@@ -78,7 +78,11 @@
     "POST_TYPE_LABEL": "Tipo de postagem",
     "SUBMIT_BUTTON_EDIT": "Editar postagem",
     "SUBMIT_BUTTON_CREATE": "Criar postagem",
-    "Comment": "um comentário"
+    "COMMENT": "um comentário",
+    "Add": "Adicionar",
+    "Edit your": "Edite seu",
+    "Reply to": "Responder a"
+
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Editar sua música",

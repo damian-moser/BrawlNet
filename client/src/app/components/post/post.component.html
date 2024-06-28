@@ -1,5 +1,5 @@
 <app-head-nav-bar></app-head-nav-bar>
-<button (click)="goBack()" color="primary" mat-button>❮ {{ 'POST_FORM.GO_BACK_BUTTON' | translate }}</button>
+<button (click)="goBack()" color="primary" mat-button>❮ {{'POST_FORM.GO_BACK_BUTTON' | translate}}</button>
 @if (post) {
   <div class="post-container">
     @if (post.image) {
@@ -13,13 +13,12 @@
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
       <div class="post-meta">
-        <span
-          [routerLink]="['/home/usersPosts/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>
-        <!--        <div class="like-dislike-container">-->
-        <!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
-        <!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
-        <!--          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>-->
-        <!--        </div>-->
+        <span [routerLink]="['/home/usersPosts/' + post.user.id]">{{'HOME.POSTED_BY' | translate}} {{ post.user.username }}</span>
+<!--        <div class="like-dislike-container">-->
+<!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
+<!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
+<!--          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>-->
+<!--        </div>-->
         <div class="like-dislike-container">
           <div class="icons-box">
             <div>
@@ -77,7 +76,7 @@
       }
     }
     <div class="comment-form">
-      <h3>{{ currentAction }} {{ 'POST.COMMENT' | translate }}</h3>
+      <h3>{{ 'POST_FORM.'+currentAction | translate }} {{'POST_FORM.COMMENT' | translate}}</h3>
       <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>

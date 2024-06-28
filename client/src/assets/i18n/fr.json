@@ -78,7 +78,10 @@
     "POST_TYPE_LABEL": "Type de publication",
     "SUBMIT_BUTTON_EDIT": "Modifier la publication",
     "SUBMIT_BUTTON_CREATE": "Créer la publication",
-    "Comment": "un commentaire"
+    "COMMENT": "un commentaire",
+    "Add": "Ajouter",
+    "Edit your": "Modifiez votre",
+    "Reply to": "Répondre à"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Modifier votre chanson",
