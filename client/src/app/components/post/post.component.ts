@@ -13,6 +13,7 @@ import {MatIcon} from "@angular/material/icon";
 import {AsyncPipe, Location, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {GenerictranslatePipe} from "../../pipes/generictranslate.pipe";
+import {CommentListComponent} from "../comment-list/comment-list.component";
 
 @Component({
   selector: 'app-post',
@@ -29,6 +30,7 @@ import {GenerictranslatePipe} from "../../pipes/generictranslate.pipe";
     AsyncPipe,
     GenerictranslatePipe,
     NgIf,
+    CommentListComponent,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -42,11 +44,7 @@ export class PostComponent implements OnInit {
   likeProcessing: boolean = false;
   liked: boolean = false;
   disliked: boolean = false;
-  @Input() comment?: Comment;
-  @Input() activeUser!: any;
-  @Input() replies: Comment[] = [];
-  @Input() currentAction: 'Add'|'Reply to'|'Edit your' = 'Add';
-  @Input() focusedComment?: Comment;
+  activeUser:User;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
@@ -76,7 +74,6 @@ export class PostComponent implements OnInit {
     })
     this.commentService.getCommentsOfPost(this.postId).subscribe((comments) => {
       this.comments = comments.filter(c => !c.comment);
-      this.replies = comments.filter(c => c.comment);
     });
     this.jwtService.getMe().subscribe((user) => {
       this.activeUser = user;
@@ -122,64 +119,5 @@ export class PostComponent implements OnInit {
   }
 
 
-  handleAction(): void {
-    if (!this.newComment.title || !this.newComment.message) {
-      return;
-    }
-    this.newComment.post = this.post;
-    this.newComment.user = this.activeUser;
-    if (this.currentAction === 'Add') {
-      this.addComment();
-    } else if (this.currentAction === 'Edit your') {
-      if (this.focusedComment) {
-        this.newComment.comment = this.focusedComment.comment;
-      }
-      this.editComment();
-    }
-    if (this.currentAction === 'Reply to') {
-      this.replyToComment();
-    }
-    this.newComment = {} as Comment;
-    this.focusedComment = undefined;
-    this.currentAction = 'Add';
-  }
 
-  addComment(): void {
-    this.commentService.createComment(this.newComment).subscribe(comment => {
-      if (comment.comment) {
-        this.replies.push(<Comment>comment);
-      } else {
-        this.comments.push(<Comment>comment);
-      }
-    });
-  }
-
-  replyToComment(): void {
-    if (this.focusedComment) {
-      this.newComment.comment = this.focusedComment;
-    }
-    this.commentService.createComment(this.newComment).subscribe(comment => {
-      this.replies.push(<Comment>comment);
-    });
-  }
-
-  editComment(): void {
-    if (this.focusedComment && this.focusedComment.id) {
-      this.newComment.id = this.focusedComment.id;
-      this.commentService.updateComment(this.newComment).subscribe(comment => {
-        this.comments = this.comments.map(c => c.id === comment.id ? comment : c);
-        this.replies = this.replies.map(c => c.id === comment.id ? comment : c);
-      });
-    }
-  }
-
-
-  deleteComment(comment: Comment): void {
-    if (comment.id) {
-      this.commentService.deleteComment(comment.id).subscribe(() => {
-        this.comments = this.comments.filter(c => c.id !== comment.id);
-        this.replies = this.replies.filter(c => c.id !== comment.id);
-      });
-    }
-  }
 }

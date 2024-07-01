@@ -3,7 +3,7 @@ import {CommentService} from "../../services/CommentService/comment.service";
 import {PostService} from "../../services/PostService/post.service";
 import {Comment} from "../../models/Comment";
 import {TranslateModule} from "@ngx-translate/core";
-import {PostComponent} from "../post/post.component";
+import {CommentsComponent} from "../comments/comments.component";
 
 @Component({
   selector: 'app-comment-list',
@@ -11,7 +11,7 @@ import {PostComponent} from "../post/post.component";
   standalone: true,
   imports: [
     TranslateModule,
-    PostComponent
+    CommentsComponent
   ],
   styleUrls: ['./comment-list.component.css']
 })

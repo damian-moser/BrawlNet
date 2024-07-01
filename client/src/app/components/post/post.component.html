@@ -51,40 +51,4 @@
       }
     </div>
   </div>
-
-  <div class="comments-section">
-    <div class="comment">
-      <div class="comment-content" style="width: 90%">
-        <h3>{{ comment?.user?.username }}</h3>
-        <p>{{ comment?.message }}</p>
-      </div>
-      <div class="comment-actions">
-        @if (comment?.user?.id === activeUser.id && comment) {
-          <mat-icon (click)="editComment()" class="comment-icon">edit</mat-icon>
-          <mat-icon (click)="deleteComment(comment)" class="comment-icon">delete</mat-icon>
-        }
-        <mat-icon (click)="currentAction='Reply to'; focusedComment = comment" class="comment-icon">reply</mat-icon>
-      </div>
-    </div>
-    @for (reply of replies; track $index) {
-      @if (reply.comment && reply.comment.id === comment?.id) {
-        <div class="reply-icon">
-          <mat-icon>subdirectory_arrow_right</mat-icon>
-        </div>
-        <app-post [comment]="reply" [activeUser]="activeUser" [replies]="replies" [currentAction]="currentAction"
-                  [focusedComment]="focusedComment"></app-post>
-      }
-    }
-    <div class="comment-form">
-      <h3>{{ 'POST_FORM.'+currentAction | translate }} {{'POST_FORM.COMMENT' | translate}}</h3>
-      <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
-      <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
-      <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
-      @if (currentAction !== 'Add') {
-        <button
-          (click)="currentAction = 'Add'; newComment.title = ''; newComment.message = '' ">{{ 'POST.CANCEL' | translate }}
-        </button>
-      }
-    </div>
-  </div>
 }
